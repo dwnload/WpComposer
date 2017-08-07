@@ -1,0 +1,23 @@
+{
+  "name": "dwnload/wp-composer",
+  "description": "A PHP class abstraction for WordPress plugins to support Composer.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Austin Passy",
+      "email": "thefrosty@users.noreply.github.com",
+      "homepage": "https://austin.passy.co",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "composer/composer": "~1.0",
+    "php": ">=7.0.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dwnload\\WpComposer\\": "src"
+    }
+  }
+}
