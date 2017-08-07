@@ -5,7 +5,9 @@ namespace Dwnload\WpComposer;
 use Composer\Console\Application;
 
 /**
- * Shared Group of Functions for WP-CLI Composer
+ * Class WpComposer
+ *
+ * @package Dwnload\WpComposer
  */
 class WpComposer {
 
@@ -31,7 +33,7 @@ class WpComposer {
     }
 
     /**
-     * Standard Running the Composer Command
+     * {@inheritdoc}
      */
     public function run() {
         // Run the Composer command.

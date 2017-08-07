@@ -1,6 +1,6 @@
 <?php
 
-namespace Dwnload\WpComposer;
+namespace Dwnload\WpComposer\WpCli;
 
 // Not a WP-CLI Request
 if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
@@ -8,6 +8,7 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
 }
 
 use Composer\Console\Application;
+use Dwnload\WpComposer\WpComposer;
 use Symfony\Component\Console\Input\ArrayInput;
 use WP_CLI_Command;
 use WP_CLI;
@@ -25,25 +26,13 @@ use WP_CLI;
  *
  * @package Dwnload\WpComposer
  */
-class WpCliCommand extends WP_CLI_Command {
-
-    /** @var  WpComposer $wp_composer */
-    private $wp_composer;
-
-    /**
-     * WpCliCommand constructor.
-     *
-     * @param WpComposer $composer
-     */
-    public function __construct( WpComposer $composer ) {
-        $this->wp_composer = $composer;
-    }
+class WpCliCommand extends AbstractWpCli {
 
     public function install() {
-        $this->wp_composer->recursiveExecution( function( $path, $data, $is_plugin, $is_theme ) {
+        $this->getWpComposer()->recursiveExecution( function( $path, $data, $is_plugin, $is_theme ) {
             WP_CLI::line( sprintf( 'Starting to process %s', end( explode( '/', $path ) ) ) );
             // Run the Composer command.
-            $application = $this->wp_composer->getApp();
+            $application = $this->getWpComposer()->getApp();
             $application->setAutoExit( false );
             $application->run( new ArrayInput( [ 'command' => 'install' ] ) );
             WP_CLI::success( 'Finished processing' );
@@ -51,10 +40,10 @@ class WpCliCommand extends WP_CLI_Command {
     }
 
     public function update() {
-        $this->wp_composer->recursiveExecution( function( $path, $data, $is_plugin, $is_theme ) {
+        $this->getWpComposer()->recursiveExecution( function( $path, $data, $is_plugin, $is_theme ) {
             WP_CLI::line( sprintf( 'Starting to process %s', end( explode( '/', $path ) ) ) );
             // Run the Composer command.
-            $application = $this->wp_composer->getApp();
+            $application = $this->getWpComposer()->getApp();
             $application->setAutoExit( false );
             $application->run( new ArrayInput( [ 'command' => 'update' ] ) );
             WP_CLI::success( 'Finished processing' );
@@ -62,10 +51,10 @@ class WpCliCommand extends WP_CLI_Command {
     }
 
     public function diagnose() {
-        $this->wp_composer->recursiveExecution( function( $path, $data, $is_plugin, $is_theme ) {
+        $this->getWpComposer()->recursiveExecution( function( $path, $data, $is_plugin, $is_theme ) {
             WP_CLI::line( sprintf( 'Starting to process %s', end( explode( '/', $path ) ) ) );
             // Run the Composer command.
-            $application = $this->wp_composer->getApp();
+            $application = $this->getWpComposer()->getApp();
             $application->setAutoExit( false );
             $application->run( new ArrayInput( [ 'command' => 'diagnose' ] ) );
             WP_CLI::success( 'Finished processing' );
@@ -73,11 +62,11 @@ class WpCliCommand extends WP_CLI_Command {
     }
 
     public function status() {
-        $this->wp_composer->run();
+        $this->getWpComposer()->run();
     }
 
     public function about() {
-        $this->wp_composer->run();
+        $this->getWpComposer()->run();
     }
 
     public function version() {
