@@ -13,6 +13,14 @@ use WP_CLI_Command;
 use WP_CLI;
 
 /**
+ * @todo: This might need to be added:
+ * @link https://github.com/composer/composer/issues/1906#issuecomment-51632453
+// Composer\Factory::getHomeDir() method
+// needs COMPOSER_HOME environment variable set
+// putenv('COMPOSER_HOME=' . __DIR__ . '/vendor/bin/composer');
+ */
+
+/**
  * Class ComposerCommand
  *
  * @package Dwnload\WpComposer
